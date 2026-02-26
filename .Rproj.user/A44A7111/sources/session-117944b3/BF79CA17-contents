@@ -1,6 +1,0 @@
-data(longley)
-
-X <- longley[, -7]
-y <- longley$Employed
-
-cor(X)

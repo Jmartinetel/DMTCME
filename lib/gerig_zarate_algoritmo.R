@@ -22,7 +22,7 @@ fit_dtmce_mansfield <- function(X, y,  tabla_critica = NULL, alpha = 0.05 ) {
   d <- svd_X$d
   
   # ============================================================
-  # 3. ESTIMACIÓN DE SIGMA²
+  # 3. ESTIMACIÓN DE SIGMA
   # ============================================================
   
   P_res <- diag(n) - U %*% t(U)
@@ -111,17 +111,17 @@ fit_dtmce_mansfield <- function(X, y,  tabla_critica = NULL, alpha = 0.05 ) {
   
   vars <- colnames(Xc)
   temp_V_s <- V_s
-  elimination_order <- character()
+  order_elimin <- character()
   target_vars = s_sel
   while (length(vars) > target_vars) {
     
     ur_table <- calcular_ur(temp_V_s, gamma_hat, D_s_inv, vars)
     
-    var_remove <- ur_table$pair[1]
+    var_elim <- ur_table$pair[1]
     
-    elimination_order <- c(elimination_order, var_remove)
+    order_elimin <- c(order_elimin, var_elim)
     
-    idx_remove <- match(var_remove, vars)
+    idx_remove <- match(var_elim, vars)
     
     temp_V_s <- temp_V_s[-idx_remove, , drop = FALSE]
     vars <- vars[-idx_remove]
@@ -141,7 +141,7 @@ fit_dtmce_mansfield <- function(X, y,  tabla_critica = NULL, alpha = 0.05 ) {
     s_seleccionado = s_sel,
     beta_dtmce = beta_dtmce,
     modelo_dtmce = modelo_dtmce,
-    orden_eliminacion = elimination_order,
+    orden_eliminacion = order_elimin,
     variables_finales = vars_final,
     modelo_mansfield = modelo_final
   )
